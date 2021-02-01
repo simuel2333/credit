@@ -34,7 +34,7 @@ npm install -g truffle
 
 ### IPFS 配置跨域
 
-```json
+```shell
 {
 	"API": {
 		"HTTPHeaders": {
