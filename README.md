@@ -34,8 +34,24 @@ npm install -g truffle
 
 ### IPFS 配置跨域
 
-```shell
-
+```json
+{
+	"API": {
+		"HTTPHeaders": {
+            "Access-Control-Allow-Methods": [
+                "POST",
+                "GET"
+               ],
+               "Access-Control-Allow-Origin": [
+                "http://localhost:3000",  # 运行本地3000端口跨域访问(可根据运行的Dapp实际端口号配置)
+                "https://webui.ipfs.io",  
+                "http://127.0.0.1:5001"
+               ]
+        	}
+		}
+	}
+	......
+}
 ```
 
 ### 启动
