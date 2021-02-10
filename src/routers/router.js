@@ -5,7 +5,8 @@ import Login from "../view/loginAndRegister/login"
 import Register from "../view/loginAndRegister/register";
 import PageNotFound from "../view/PageNotFound";
 import board from '../view/admin/trademark/board'
-import {AreaChartOutlined,ShopOutlined, TrademarkCircleFilled} from '@ant-design/icons'
+import UploadFile from '../view/admin/addFile/UploadFile'
+import { AreaChartOutlined, ShopOutlined, TrademarkCircleFilled, CloudUploadOutlined } from '@ant-design/icons'
 export const mainRoutes = [
     {
         path: "/login",
@@ -33,7 +34,7 @@ export const adminRoutes = [
         path: "/admin/products",
         component: List,
         exact: true,
-        isShow: true,
+        isShow: false,
         title: "商品",
         icon: ShopOutlined
     },
@@ -48,5 +49,12 @@ export const adminRoutes = [
         isShow: true,
         title: "商标抵押",
         icon: TrademarkCircleFilled
+    },
+    {
+        path: "/admin/upload",
+        component: UploadFile,
+        isShow: true,
+        title: "上传图片",
+        icon: CloudUploadOutlined
     }
 ];
