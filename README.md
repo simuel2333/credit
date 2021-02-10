@@ -20,7 +20,7 @@ npm install -g truffle
 
 ### 安装ganache
 
-[ganache链接]([Releases · trufflesuite/ganache (github.com)](https://github.com/trufflesuite/ganache/releases))
+[ganache链接](https://github.com/trufflesuite/ganache/releases))
 
 ### 安装MetaMask
 
