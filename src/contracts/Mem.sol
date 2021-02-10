@@ -6,7 +6,6 @@ contract Meme {
     // Write FUnction
     function set(string memory _memeHash) public {
         memeHash = _memeHash;
-        
     }
     // Read Function
     function get() public view returns (string memory) {

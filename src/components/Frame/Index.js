@@ -36,7 +36,7 @@ class Index extends Component {
         return (
             <Layout>
                 <Header className="header">
-                    <div className="logo" />
+                    <div className="logo">征信链</div>
                     <Dropdown overlay={menu}>
                         <a className="ant-dropdown-link" href="/#" onClick={e => { e.preventDefault() }}>
                             <Avatar style={{ backgroundColor: '#f56a00' }}>U</Avatar> 管理员 <DownOutlined />
