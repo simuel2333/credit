@@ -1,5 +1,5 @@
-const Meme = artifacts.require("Meme");
+const ImgStore = artifacts.require("ImgStore");
 
 module.exports = function(deployer) {
-  deployer.deploy(Meme);
+  deployer.deploy(ImgStore);
 };
