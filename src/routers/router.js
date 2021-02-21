@@ -53,7 +53,7 @@ export const adminRoutes = [
     {
         path: "/admin/upload",
         component: UploadFile,
-        isShow: true,
+        isShow: false,
         title: "上传图片",
         icon: CloudUploadOutlined
     }
