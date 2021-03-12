@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tabs, Card, Input, Table, Tag, Space, Descriptions, Badge, Image, Button, Row, Col ,InputNumber} from 'antd';
+import { Tabs, Card, Input, Table, Tag, Space, Descriptions, Badge, Image, Button, Row, Col, InputNumber, Modal, Form, DatePicker, } from 'antd';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -7,12 +7,52 @@ function callback(key) {
     console.log(key);
 }
 const onSearch = value => console.log(value);
+const { RangePicker } = DatePicker;
 
-
+const formItemLayout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+    },
+};
+const config = {
+    rules: [
+        {
+            type: 'object',
+            required: true,
+            message: 'Please select time!',
+        },
+    ],
+};
 export class board extends Component {
-
-
+    state = { isModalVisible: false };
     render() {
+
+        const onFinish = () => {
+            console.log("...");
+        };
+
+        const addMortgage = () => {
+            this.setState({
+                isModalVisible: true,
+            });
+        }
+
+        const handleOk = () => {
+            this.setState({
+                isModalVisible: false,
+            });
+        };
+
+        const handleCancel = () => {
+            this.setState({
+                isModalVisible: false,
+            });
+        };
 
         const columns = [
             {
@@ -97,13 +137,13 @@ export class board extends Component {
                     </Col>
                     <Col span={12}>
                         <Descriptions bordered>
-                            <Descriptions.Item  span={3} label="当前出价">
+                            <Descriptions.Item span={3} label="当前出价">
                                 ￥{demo.price}
                             </Descriptions.Item>
                             <Descriptions.Item label="出价">
-                            <InputNumber min={10} max={99999999999} defaultValue={demo.price}/>
+                                <InputNumber min={10} max={99999999999} defaultValue={demo.price} />
                                 <br />
-                                <Button style={{marginTop:10}} type="primary" danger>
+                                <Button style={{ marginTop: 10 }} type="primary" danger>
                                     立即竞拍
                                 </Button>
                             </Descriptions.Item>
@@ -184,17 +224,37 @@ export class board extends Component {
                     </Card>
                 </TabPane>
                 <TabPane tab="商标抵押" key="2">
-                    <Card title="抵押列表" extra={<Button type="primary">新增抵押</Button>}>
+                    <Card title="抵押列表" extra={<Button type="primary" onClick={addMortgage}>新增抵押</Button>}>
                         <Table columns={columns} dataSource={data} />
+                        <Modal title="新增商标抵押" visible={this.state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                            <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
+                                <Form.Item name="date" label="日期" {...config}>
+                                    <DatePicker />
+                                </Form.Item>
+                                <Form.Item name="name" label="商标名称">
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item
+                                    wrapperCol={{
+                                        xs: { span: 24, offset: 0 },
+                                        sm: { span: 16, offset: 8 },
+                                    }}
+                                >
+                                    <Button type="primary" htmlType="submit">
+                                        Submit
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+                        </Modal>
                     </Card>
                 </TabPane>
-                <TabPane tab="商标拍卖" key="3">
+                {/* <TabPane tab="商标拍卖" key="3">
                     <Card title="拍卖列表" extra={<Button type="primary">新增拍卖</Button>}>
                         <Space size={[50, 40]} wrap>
                             {listItems}
                         </Space>
                     </Card>
-                </TabPane>
+                </TabPane> */}
             </Tabs>
         )
     }
