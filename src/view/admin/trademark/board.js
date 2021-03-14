@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Tabs, Card, Input, Table, Tag, Space, Descriptions, Badge, Image, Button, Row, Col, InputNumber, Modal, Form, DatePicker, } from 'antd';
-
+import { Tabs, Card, Input, Table, Spin, Tag, Space, Descriptions, Badge, Image, Button, Row, Col, InputNumber, Modal, Form, DatePicker, Upload, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { post } from '../../../utils/request'
 const { TabPane } = Tabs;
 const { Search } = Input;
 function callback(key) {
@@ -19,21 +20,108 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
-const config = {
-    rules: [
-        {
-            type: 'object',
-            required: true,
-            message: 'Please select time!',
-        },
-    ],
-};
+
 export class board extends Component {
-    state = { isModalVisible: false };
+    state = { isModalVisible: false, buffer: null, trades:[] };
+
+    async componentWillMount() {
+        await this.queryAllTradeMark()
+    }
+    queryAllTradeMark = () => {
+        post("/mark/queryTradeMark").then(res => {
+
+            for (let i = 0; i < res.data.length; i++) {
+                let trade = {}
+                let e = JSON.parse(res.data[i])
+                trade.key = i
+                trade.name = e.name
+                trade.img = <Image
+                    width={30}
+                    src={'data:image/png;base64,' + e.img}
+                />
+                trade.loanCount = e.price
+                trade.tags = ['还未还款']
+                let trades =[...this.state.trades]
+                trades.push(trade)
+                this.setState({trades: trades})
+            }
+        })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+    
+    data = [
+        {
+            key: '1',
+            name: '企业B',
+            img: <Image
+                width={100}
+                src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2766570908,1262039494&fm=26&gp=0.jpg"
+            />,
+            loanCount: '￥10,000.00',
+            tags: ['按时还款'],
+        },
+        {
+            key: '2',
+            name: '企业A',
+            img: <Image
+                width={100}
+                src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1040649913,240362369&fm=26&gp=0.jpg"
+            />,
+            loanCount: '￥20,000.00',
+            tags: ['已还完贷款'],
+        },
+        {
+            key: '3',
+            name: '企业E',
+            img: <Image
+                width={100}
+                src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2012532626,1883598624&fm=26&gp=0.jpg"
+            />,
+            loanCount: '￥30,000.00',
+            tags: ['有违约'],
+        },
+    ];
+
+    captureFile = (event) => {
+        event.preventDefault()
+        console.log("capture file...")
+        console.log(event.target.files[0])
+        const file = event.target.files[0]
+        const reader = new window.FileReader()
+        reader.readAsArrayBuffer(file)
+        reader.onloadend = () => {
+            this.setState({ buffer: Buffer(reader.result) })
+        }
+    }
+
+    base64_encode = (buffer) => {
+        return buffer.toString('base64')
+    }
+
+    base64_decode = (str) => {
+        return Buffer(str, "base64")
+    }
     render() {
 
-        const onFinish = () => {
-            console.log("...");
+        const onFinish = (value) => {
+            post("/mark/addTradeMark", {
+                name: value.name,
+                price: value.price,
+                img: this.base64_encode(this.state.buffer)
+            }).then(res => {
+                if (res.data !== "success") {
+                    message.error("图片太大,请勿超过64kb");
+                } else {
+                    message.info("添加成功");
+                    this.queryAllTradeMark()
+                }
+            })
+                .catch(err => {
+                    message.error("出错");
+                    console.error(err);
+                })
         };
 
         const addMortgage = () => {
@@ -152,41 +240,39 @@ export class board extends Component {
                 </Row>
             </Card>
         );
-        const data = [
-            {
-                key: '1',
-                name: '企业B',
-                img: <Image
-                    width={100}
-                    src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2766570908,1262039494&fm=26&gp=0.jpg"
-                />,
-                loanCount: '￥10,000.00',
-                tags: ['按时还款'],
-            },
-            {
-                key: '2',
-                name: '企业A',
-                img: <Image
-                    width={100}
-                    src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1040649913,240362369&fm=26&gp=0.jpg"
-                />,
-                loanCount: '￥20,000.00',
-                tags: ['已还完贷款'],
-            },
-            {
-                key: '3',
-                name: '企业E',
-                img: <Image
-                    width={100}
-                    src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2012532626,1883598624&fm=26&gp=0.jpg"
-                />,
-                loanCount: '￥30,000.00',
-                tags: ['有违约'],
-            },
-        ];
+
         return (
             <Tabs defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="商标查询" key="1">
+                <TabPane tab="商标抵押" key="1">
+                    <Card title="抵押列表" extra={<Button type="primary" onClick={addMortgage}>新增抵押</Button>}>
+                        <Table columns={columns} dataSource={this.state.trades} />
+                        <Modal title="新增商标抵押" visible={this.state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                            <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
+                                <Form.Item name="name" label="商标名称">
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item name="price" label="价格">
+                                    <InputNumber min={10} max={99999999999} />
+                                </Form.Item>
+                                <Form.Item name="img" label="商标图片">
+                                    <input type="file" onChange={this.captureFile} />
+                                </Form.Item>
+                                <Form.Item
+                                    wrapperCol={{
+                                        xs: { span: 24, offset: 0 },
+                                        sm: { span: 16, offset: 8 },
+                                    }}
+                                >
+                                    <Button type="primary" htmlType="submit">
+                                        提交
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+
+                        </Modal>
+                    </Card>
+                </TabPane>
+                <TabPane tab="商标查询" key="2">
                     <Card title="商标查询" extra={<Search placeholder="请输入商标名称" onSearch={onSearch} enterButton />}>
                         <Descriptions bordered>
                             <Descriptions.Item label="商标名称">
@@ -221,31 +307,6 @@ export class board extends Component {
                                 <a>商标权变更</a>: A企业转移至B企业
                             </Descriptions.Item>
                         </Descriptions>
-                    </Card>
-                </TabPane>
-                <TabPane tab="商标抵押" key="2">
-                    <Card title="抵押列表" extra={<Button type="primary" onClick={addMortgage}>新增抵押</Button>}>
-                        <Table columns={columns} dataSource={data} />
-                        <Modal title="新增商标抵押" visible={this.state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                            <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
-                                <Form.Item name="date" label="日期" {...config}>
-                                    <DatePicker />
-                                </Form.Item>
-                                <Form.Item name="name" label="商标名称">
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item
-                                    wrapperCol={{
-                                        xs: { span: 24, offset: 0 },
-                                        sm: { span: 16, offset: 8 },
-                                    }}
-                                >
-                                    <Button type="primary" htmlType="submit">
-                                        Submit
-                                    </Button>
-                                </Form.Item>
-                            </Form>
-                        </Modal>
                     </Card>
                 </TabPane>
                 {/* <TabPane tab="商标拍卖" key="3">
