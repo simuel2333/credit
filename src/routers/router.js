@@ -6,6 +6,7 @@ import Register from "../view/loginAndRegister/register";
 import PageNotFound from "../view/PageNotFound";
 import board from '../view/admin/trademark/board'
 import UploadFile from '../view/admin/addFile/UploadFile'
+import loan from '../view/admin/loan/loan'
 import { AreaChartOutlined, ShopOutlined, TrademarkCircleFilled, CloudUploadOutlined } from '@ant-design/icons'
 export const mainRoutes = [
     {
@@ -56,5 +57,12 @@ export const adminRoutes = [
         isShow: false,
         title: "上传图片",
         icon: CloudUploadOutlined
+    },
+    {
+        path: "/admin/loan/loan",
+        component: loan,
+        isShow: true,
+        title: "信用贷款",
+        icon: TrademarkCircleFilled
     }
 ];

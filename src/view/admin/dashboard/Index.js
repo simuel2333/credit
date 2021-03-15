@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Card, Table } from 'antd'
+import { Alert, Button, Card, Table } from 'antd'
 import Web3 from 'web3'
+import { post, get } from '../../../utils/request'
 export default class Index extends Component {
     async loadWeb3() {
         if (window.ethereum) {
@@ -109,8 +110,21 @@ export default class Index extends Component {
             },
         ]
 
+        const addTranscation = ()=>{
+            post("/get").then(res => {
+                console.log(res)
+            }) 
+            .catch(err => {
+                console.error(err);
+            })
+        }
+
+
+        
+
         return (
             <Card title="历史交易">
+                <Button type="primary" onClick={addTranscation}>查询</Button>
                 <Table rowKey="id" columns={columns} dataSource={data} bordered />
             </Card>
         )
