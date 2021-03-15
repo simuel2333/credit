@@ -7,7 +7,7 @@ const { Search } = Input;
 function callback(key) {
     console.log(key);
 }
-const onSearch = value => console.log(value);
+
 const { RangePicker } = DatePicker;
 
 const formItemLayout = {
@@ -22,8 +22,11 @@ const formItemLayout = {
 };
 
 export class board extends Component {
-    state = { isModalVisible: false, buffer: null, trades:[] };
-
+    state = { isModalVisible: false, buffer: null, trades:[] , searchShow: "none"};
+    onSearch = value => {
+        console.log(value);
+        this.setState({searchShow: ""})
+    }
     async componentWillMount() {
         await this.queryAllTradeMark()
     }
@@ -273,30 +276,30 @@ export class board extends Component {
                     </Card>
                 </TabPane>
                 <TabPane tab="商标查询" key="2">
-                    <Card title="商标查询" extra={<Search placeholder="请输入商标名称" onSearch={onSearch} enterButton />}>
-                        <Descriptions bordered>
+                    <Card title="商标查询" extra={<Search placeholder="请输入商标名称" onSearch={this.onSearch} enterButton />}>
+                        <Descriptions bordered  style={{display: this.state.searchShow}}>
                             <Descriptions.Item label="商标名称">
-                                商标名称B
+                                相机生产企业公司
                             </Descriptions.Item>
                             <Descriptions.Item label="商标" span={2}><Image
                                 width={200}
-                                src="http://user-assets.sxlcdn.com/images/134173/FqFY9tCFWogu5bNwPwYtR4ro9rHH.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADwklEQVRYR+2WTWhcVRTHf+dNmoABP6p17owuqujCVqWYigrRpi6kFelCKYgVMndcFDcVRFxoUQSNlViiLsQUM2+SCGKDEFdZFGnjB1K0qNEUK0i7iMl7DfFjUS2deffKe+NM3mRmMlMn2E3f8r5zzv3d//m4V7jEn1zi/bkM0LoC42dvoRjMgnS2njZ7HpwD6OQrjXxaB3A9i5itZNInKsHchb66gXXqWGU9550jq7rXBkCrZeAQCJmoDWxmsZImq/ZG/0K7uN8Kh4tToDWAkyDb0Gr7GgP4v6OT11QOMOrfiTHrm6YgUspuJ56WmFNM0tNXQ1cfOM+U/ttRSHwHxXBtAOSN1YqpYWF+sHQjhcIvWPKImUKnJ+O28Zy+jnCajDoUGYwuPoIpfgzsR6cGW6/8Bpa5pU3IhW/Rqa5GAEW06qhyd/0fsTJI9vrRmrDD81fQyWOQuAPMZqzMgf0BMafQNxypi1GnIOMKHK0UTkibvfYkrncUzCfo9FtVAfPzPVjnC7AvYe0MnV1fERiFDXqwshOxHWTUEzUQIYC1U4hzvJzOagAxz2Gdb4AzIHmwfTUAOf9pxN6GVvsapsVd2A1yuKb9ygrElFgBwIdYSeE4JzDBAWCxCmD4t6vovPApWm0ttZj/MrAH7K0VmHKrjnm3E0gvOvne8uD6dyY0BAh7Nwpqd0PxSegYqgLIewUMvWTVcVxvBJhBq7eXp15YaIXZysnDjYxs4ank91UzYVWAuK4ra8D1z6GT3bhemN/X0OqmmjS8/+d6En8vRRDu3BboeBitBtoHGPHvI2HvJqPeIe8dwZoxdHq8abXnvAJZta59gCg1ZjqaaE3mO65/GMwEOjVRZdu0CMvzu3yseAriCrj+JGKnyaih/0+BUtWXaqDUDX/UveVy3j0IB9Gqd21rIALwAgh2RJMu7+3Csh9kAJ2cZHwxRcE+hGP6yagHI2XC/Cekh/7kTPs1UEmLH6CTidIGi9twgkex7AOZBw5VLqzwLgmCbrLqo4ubA6u1YUmFe7GM45jHq15HVX7+GLABndxZfbe0MoiaAYT/h+06Os8Ogb0O5DOsmQC5GZEdwIsIL5BJvln3Lojmw/Irqf5lVJF7YQprvySbfrV+tS9shMQmCDYjMoc4P3G+eIq96b8adgccA/s1OvV8aBMDiPV5lN9f7wJnGiGUcxCdOlM3aKuL0QNWnkWrXXGXGEBo4PSD3VgykAfA7kG4EngXy+et7lVjJ9yPYYRE4iD9G36uD/Cfo7fn2PqruL19GnpfBvgHJ4sUPz8WKJQAAAAASUVORK5CYII="
                             />
                             </Descriptions.Item>
-                            <Descriptions.Item label="国际分类">42-科学技术服务</Descriptions.Item>
+                            <Descriptions.Item label="国际分类">制造业</Descriptions.Item>
                             <Descriptions.Item label="申请注册号">51326585</Descriptions.Item>
                             <Descriptions.Item label="申请日期" span={2}>
-                                2020-2-1 08:00:00
+                                2021-3-15
     </Descriptions.Item>
                             <Descriptions.Item label="状态">
-                                <Badge status="processing" text="尚未抵押" />
+                                <Badge status="processing" text="尚未还款" />
                             </Descriptions.Item>
                             <Descriptions.Item label="商标有效期" span={2}>
                                 十年
                             </Descriptions.Item>
-                            <Descriptions.Item label="商标估值">￥1,000,000.00</Descriptions.Item>
-                            <Descriptions.Item label="贷款比例">20%</Descriptions.Item>
-                            <Descriptions.Item label="抵押贷款金额">￥200,000.00</Descriptions.Item>
+                            <Descriptions.Item label="商标估值">￥100,000.00</Descriptions.Item>
+                            <Descriptions.Item label="贷款比例">50%</Descriptions.Item>
+                            <Descriptions.Item label="抵押贷款金额">￥60,000.00</Descriptions.Item>
                             <Descriptions.Item label="商标交易记录">
                                 2020-4-1 09:12:00
                                 <br />
@@ -304,7 +307,7 @@ export class board extends Component {
                                 <br />
                                 2020-5-8 19:12:00
                                 <br />
-                                <a>商标权变更</a>: A企业转移至B企业
+                                <a>商标权变更</a>: A企业转移至相机生产公司
                             </Descriptions.Item>
                         </Descriptions>
                     </Card>
