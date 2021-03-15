@@ -119,20 +119,12 @@ export default class Index extends Component {
             })
         }
 
-        const l = ()=>{
-            get("/loan").then(res => {
-                console.log(res)
-            }) 
-            .catch(err => {
-                console.error(err);
-            })
-        }
+
         
 
         return (
             <Card title="历史交易">
                 <Button type="primary" onClick={addTranscation}>查询</Button>
-                <Button type="primary" onClick={l}>贷款</Button>
                 <Table rowKey="id" columns={columns} dataSource={data} bordered />
             </Card>
         )

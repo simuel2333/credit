@@ -60,7 +60,7 @@ export const adminRoutes = [
     },
     {
         path: "/admin/loan/loan",
-        component: board,
+        component: loan,
         isShow: true,
         title: "信用贷款",
         icon: TrademarkCircleFilled
