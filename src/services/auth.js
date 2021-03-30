@@ -15,7 +15,16 @@ export function registerApi(user) {
 // 模拟
 export async function loginApi(user) {
     let res = {data:{}}
+    console.log(user.email)
+    if(user.email.startsWith("jianguan")){
+        res.data.data = "supervise"
+    } else if(user.email.startsWith("jigou")){
+        res.data.data = "institution"
+    } else {
+        res.data.data = "user"
+    }
+
     res.data.status = "success"
-    res.data.data = "token"
+    
     return res
 }

@@ -1,0 +1,18 @@
+.title {
+    font-size: 1.2375rem;
+    font-weight: 900 !important;
+}
+
+.site-calendar-demo-card {
+    width: 300px;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+}
+
+.normal {
+    color: #3f8600;
+}
+
+.warning {
+    color: tomato;
+}

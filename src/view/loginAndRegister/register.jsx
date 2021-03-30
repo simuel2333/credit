@@ -82,7 +82,7 @@ export default class Register extends React.Component {
         }
 
         return (
-            <Card title="注册" className="register-card">
+            <Card title="个人用户注册" className="register-card">
                 <Form name="register-form" {...formItemLayout} onFinish={onFinish}>
                     <Form.Item name="email" label="邮箱" rules={[{ type: 'email', message: "邮箱不合法!" }, { required: true, message: "请输入邮箱！" }
                     ]}>
@@ -139,6 +139,9 @@ export default class Register extends React.Component {
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
                             注册
+                        </Button>
+                        <Button type="ghost" htmlType="submit" style={{ marginLeft: 15 }}>
+                            机构用户注册
                         </Button>
                     </Form.Item>
                 </Form>

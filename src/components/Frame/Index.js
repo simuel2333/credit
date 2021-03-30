@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import { Layout, Menu, Avatar, Dropdown, message } from 'antd';
 import Icon from '@ant-design/icons';
 import './style.css'
-import { adminRoutes } from '../../routers/router';
+import { userRoutes, superviseRoutes, institutionRoutes } from '../../routers/router';
 import { withRouter } from 'react-router-dom';
 import { DownOutlined,LogoutOutlined } from '@ant-design/icons';
-import { clearToken } from '../../utils/auth';
+import { clearToken, whoLogined } from '../../utils/auth';
 
 const { Header, Content, Sider } = Layout;
-const routes = adminRoutes.filter(route => route.isShow);
+let routes; 
+if(whoLogined().startsWith("user")){
+    routes = userRoutes.filter(route => route.isShow);
+} else if(whoLogined().startsWith("supervise")){
+    routes = superviseRoutes.filter(route => route.isShow);
+} else {
+    routes = institutionRoutes.filter(route => route.isShow);
+}
+
 class Index extends Component {
 
     render() {
@@ -36,10 +44,10 @@ class Index extends Component {
         return (
             <Layout>
                 <Header className="header">
-                    <div className="logo">征信链</div>
+                    <div className="logo">区块链信用模型共享及认证系统</div>
                     <Dropdown overlay={menu}>
                         <a className="ant-dropdown-link" href="/#" onClick={e => { e.preventDefault() }}>
-                            <Avatar style={{ backgroundColor: '#f56a00' }}>U</Avatar> 管理员 <DownOutlined />
+                            <Avatar style={{ backgroundColor: '#f56a00' }}>U</Avatar><DownOutlined />
                         </a>
                     </Dropdown>
                 </Header>

@@ -16,3 +16,15 @@ export const isLogined = () => {
     }
     return false;
 }
+
+export const whoLogined = () => {
+    if(localStorage.getItem('token')== null) {
+        return "user";
+    } else if(localStorage.getItem('token').startsWith("user")) {
+        return "user";
+    } else if(localStorage.getItem('token').startsWith("supervise")) {
+        return "supervise";
+    } else {
+        return "institution";
+    }
+}

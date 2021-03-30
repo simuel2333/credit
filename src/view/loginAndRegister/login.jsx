@@ -27,7 +27,14 @@ export default class Login extends React.Component {
                     } else {
                         message.info("登录成功");
                         setToken(data);
-                        this.props.history.push("/admin");
+                        if(data.startsWith("super")) {
+                            this.props.history.push("/admin/supervisedashboard");
+                        } else if(data.startsWith("user")) {
+                            this.props.history.push("/admin/userdashboard");
+                        } else {
+                            this.props.history.push("/admin/institutiondashboard");
+                        }
+                        
                     }
                 })
                 .catch(err => {
@@ -85,6 +92,7 @@ export default class Login extends React.Component {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
         </Button>
+        从助记词还原 <Link to="/register">使用账户助记词导入</Link><br/>
         没有账户 <Link to="/register">注册</Link>
                     </Form.Item>
                 </Form>

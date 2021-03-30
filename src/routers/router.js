@@ -7,7 +7,21 @@ import PageNotFound from "../view/PageNotFound";
 import board from '../view/admin/trademark/board'
 import UploadFile from '../view/admin/addFile/UploadFile'
 import loan from '../view/admin/loan/loan'
-import { AreaChartOutlined, ShopOutlined, TrademarkCircleFilled, CloudUploadOutlined } from '@ant-design/icons'
+import { AreaChartOutlined, DownloadOutlined, SolutionOutlined, SafetyCertificateOutlined, AuditOutlined, VerifiedOutlined, ToolOutlined, CopyOutlined, CloudUploadOutlined, ShareAltOutlined, SearchOutlined, GlobalOutlined, CreditCardOutlined } from '@ant-design/icons'
+import UserDashboard from "../view/admin/user/UserDashboard";
+import dataUpload from "../view/admin/user/dataUpload";
+import creditGrant from "../view/admin/user/creditGrant";
+import certificateDownload from "../view/admin/user/certificateDownload";
+import SuperviseDashboard from "../view/admin/supervise/SuperviseDashboard";
+import InstitutionDashboard from "../view/admin/institution/InstitutionDashboard";
+import dataShare from "../view/admin/institution/dataShare";
+import modelSearch from "../view/admin/institution/modelSearch";
+import learning from "../view/admin/institution/learning";
+import certificateApprove from "../view/admin/supervise/certificateApprove";
+import dataApproval from "../view/admin/supervise/dataApproval";
+import punish from "../view/admin/supervise/punish";
+import contributionVerify from "../view/admin/supervise/contributionVerify";
+import creditAuth from "../view/admin/institution/creditAuth";
 export const mainRoutes = [
     {
         path: "/login",
@@ -23,46 +37,115 @@ export const mainRoutes = [
     }
 ];
 
-export const adminRoutes = [
+export const userRoutes = [
     {
-        path: "/admin/dashboard",
-        component: Index,
+        path: "/admin/userdashboard",
+        component: UserDashboard,
         isShow: true,
-        title: "历史交易",
+        title: "个人信息",
         icon: AreaChartOutlined
     },
     {
-        path: "/admin/products",
-        component: List,
-        exact: true,
-        isShow: false,
-        title: "商品",
-        icon: ShopOutlined
-    },
-    {
-        path: "/admin/products/edit/:id?",
-        component: Edit,
-        isShow: false
-    },
-    {
-        path: "/admin/trademark/board",
-        component: board,
+        path: "/admin/dataUpload",
+        component: dataUpload,
         isShow: true,
-        title: "商标抵押",
-        icon: TrademarkCircleFilled
-    },
-    {
-        path: "/admin/upload",
-        component: UploadFile,
-        isShow: false,
-        title: "上传图片",
+        title: "信息录入",
         icon: CloudUploadOutlined
     },
     {
-        path: "/admin/loan/loan",
-        component: loan,
+        path: "/admin/creditgrant",
+        component: creditGrant,
         isShow: true,
-        title: "信用贷款",
-        icon: TrademarkCircleFilled
+        title: "信用数据授权",
+        icon: AuditOutlined
+    },
+    {
+        path: "/admin/certificateDownload",
+        component: certificateDownload,
+        isShow: true,
+        title: "证书下载",
+        icon: DownloadOutlined
     }
+];
+
+export const superviseRoutes = [
+    {
+        path: "/admin/supervisedashboard",
+        component: SuperviseDashboard,
+        exact: true,
+        isShow: true,
+        title: "监管信息面板",
+        icon: AreaChartOutlined
+    },
+    {
+        path: "/admin/dataapproval",
+        component: dataApproval,
+        exact: true,
+        isShow: true,
+        title: "信息审核",
+        icon: CopyOutlined
+    },
+    {
+        path: "/admin/punish",
+        component: punish,
+        exact: true,
+        isShow: true,
+        title: "违约处罚",
+        icon: ToolOutlined
+    },
+    {
+        path: "/admin/ceriticateApprove",
+        component: certificateApprove,
+        exact: true,
+        isShow: true,
+        title: "认证签名",
+        icon: VerifiedOutlined
+    },
+    {
+        path: "/admin/contributionverify",
+        component: contributionVerify,
+        exact: true,
+        isShow: true,
+        title: "贡献审核",
+        icon: SolutionOutlined
+    },
+];
+
+export const institutionRoutes = [
+
+    {
+        path: "/admin/institutiondashboard",
+        component: InstitutionDashboard,
+        isShow: true,
+        title: "综合看板",
+        icon: AreaChartOutlined
+    },
+    {
+        path: "/admin/datashare",
+        component: dataShare,
+        isShow: true,
+        title: "数据共享",
+        icon: ShareAltOutlined
+    },
+    {
+        path: "/admin/modelsearch",
+        component: modelSearch,
+        isShow: true,
+        title: "模型搜索",
+        icon: SearchOutlined
+    },
+    {
+        path: "/admin/learning",
+        component: learning,
+        isShow: true,
+        title: "联邦学习",
+        icon: GlobalOutlined
+    },
+    {
+        path: "/admin/creditAuth",
+        component: creditAuth,
+        isShow: true,
+        title: "信用认证",
+        icon: SafetyCertificateOutlined
+    },
 ];

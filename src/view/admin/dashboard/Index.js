@@ -119,9 +119,6 @@ export default class Index extends Component {
             })
         }
 
-
-        
-
         return (
             <Card title="历史交易">
                 <Button type="primary" onClick={addTranscation}>查询</Button>
