@@ -22,6 +22,7 @@
     "chai-bignumber": "3.0.0",
     "echarts": "^5.0.2",
     "ipfs-http-client": "^48.2.1",
+    "js-sha256": "^0.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

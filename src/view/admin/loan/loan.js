@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Tabs, Card, Input, Table, Tag, Space, Descriptions, Badge, Image, Button, Row, Col, InputNumber, message } from 'antd';
-import { post, get } from '../../../utils/request'
-import { AudioOutlined } from '@ant-design/icons';
+import { Input, Space, Descriptions, Badge, message } from 'antd';
+import { post } from '../../../utils/request'
 
 const { Search } = Input;
 

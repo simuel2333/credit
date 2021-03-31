@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Alert, Button, Card, Table } from 'antd'
+import { Button, Card, Table } from 'antd'
 import Web3 from 'web3'
-import { post, get } from '../../../utils/request'
+import { post } from '../../../utils/request'
 export default class Index extends Component {
     async loadWeb3() {
         if (window.ethereum) {

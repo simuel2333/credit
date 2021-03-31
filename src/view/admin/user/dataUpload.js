@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Select, Upload, Button, Space, Typography, Card, Row, Col, DatePicker } from 'antd';
+import { Form, Input, Select, Upload, Button, Card, Row, Col, DatePicker } from 'antd';
 import { UploadOutlined } from '@ant-design/icons'
 function dataUpload() {
     const onFinish = values => {

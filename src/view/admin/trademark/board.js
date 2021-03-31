@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Tabs, Card, Input, Table, Spin, Tag, Space, Descriptions, Badge, Image, Button, Row, Col, InputNumber, Modal, Form, DatePicker, Upload, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Tabs, Card, Input, Table, Tag, Space, Descriptions, Badge, Image, Button, InputNumber, Modal, Form, message } from 'antd';
 import { post } from '../../../utils/request'
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -8,7 +7,6 @@ function callback(key) {
     console.log(key);
 }
 
-const { RangePicker } = DatePicker;
 
 const formItemLayout = {
     labelCol: {
@@ -188,7 +186,7 @@ export class board extends Component {
             {
                 title: '操作',
                 key: 'action',
-                render: (text, record) => (
+                render: () => (
                     <Space size="middle">
                         <a>详情</a>
                     </Space>
@@ -217,32 +215,6 @@ export class board extends Component {
                 price: "1000000"
             }
         ];
-        const listItems = demos.map((demo) =>
-            <Card
-                hoverable
-                style={{ width: 700 }}
-            >
-                <Row>
-                    <Col span={12}>
-                        <Image width={250} src={demo.url} />
-                    </Col>
-                    <Col span={12}>
-                        <Descriptions bordered>
-                            <Descriptions.Item span={3} label="当前出价">
-                                ￥{demo.price}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="出价">
-                                <InputNumber min={10} max={99999999999} defaultValue={demo.price} />
-                                <br />
-                                <Button style={{ marginTop: 10 }} type="primary" danger>
-                                    立即竞拍
-                                </Button>
-                            </Descriptions.Item>
-                        </Descriptions>
-                    </Col>
-                </Row>
-            </Card>
-        );
 
         return (
             <Tabs defaultActiveKey="1" onChange={callback}>

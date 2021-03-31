@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
-import { Card, Tabs, Table, Tag, Space, Button } from 'antd';
+import { Tabs, Table, Space, Button } from 'antd';
 
 const { TabPane } = Tabs;
 export default class creditGrant extends Component {

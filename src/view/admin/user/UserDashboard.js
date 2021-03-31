@@ -1,6 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
-import { Row, Col, Card, Avatar, Statistic, Calendar, Descriptions, Badge } from 'antd';
-import { Gauge } from '@ant-design/charts';
+import { Row, Col, Card, Avatar, Statistic, Descriptions, Badge } from 'antd';
 import './user.css'
 const { Meta } = Card;
 

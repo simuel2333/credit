@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-import { Row, Col, Card, Table, Space, Button, Tabs, Tag } from 'antd'
-import { Line } from '@ant-design/charts';
+import { Row, Col, Card, Table, Space, Button, Tabs, Tag, DatePicker } from 'antd'
+import { Column } from '@ant-design/charts';
+import { alarms } from '../../../utils/mockData';
+import './supervise.css'
 const { TabPane } = Tabs;
+
+
 export default class SuperviseDashboard extends Component {
+
     render() {
         const columns1 = [
             {
@@ -37,7 +42,7 @@ export default class SuperviseDashboard extends Component {
                 render: tags => (
                     <>
                         {tags.map(tag => {
-                            let color = tag=='异常' ? 'volcano' : 'green';
+                            let color = tag === '异常' ? 'volcano' : 'green';
                             if (tag === '联邦学习') {
                                 color = 'geekblue';
                             }
@@ -61,47 +66,86 @@ export default class SuperviseDashboard extends Component {
                 ),
             },
         ];
-        const data1 = [
+
+        const data = [
             {
-                key: '1',
-                hash: '0xf108b69990e9dd020989fca05294c6094e9e4e6f73754ee423e802ffb1485522',
-                addr: '0x097E180c3A7FFd8218BE11D2464f98b3713B1ED3',
-                time: '2021-03-15 15:35:17',
-                tags: ['索要授权'],
+                name: '索要授权',
+                date: '2021-3-29',
+                value: 4
             },
             {
-                key: '2',
-                hash: '0xcc9e548f1b80b12149be04a6a4b3996dc922d4533fbf881355f7b2bf13e3e0c8',
-                addr: '0x1eE48513e8b0fadcc523804d732d4A6E500D35F7',
-                time: '2021-03-15 15:38:21',
-                tags: ['索要授权'],
+                name: '联邦学习',
+                date: '2021-3-29',
+                value: 0
             },
             {
-                key: '3',
-                hash: '0xcaf6715938bafd7be114c8debccfc88be0f40e3586bde13985d940ebd25afd95',
-                addr: '0x44ae50c1828da9d95aac4d596bb41404e7127908',
-                time: '2021-03-16 16:29:27',
-                tags: ['异常'],
+                name: '异常',
+                date: '2021-3-29',
+                value: 0
             },
             {
-                key: '4',
-                hash: '0x40116a0eb505cf90b837154a5b32c75a6dc893a0f36561204b427e766608a5c6',
-                addr: '0x8a0bc5db7e852d0a3184a03aea525ef91fbeb5fe',
-                time: '2021-03-17 18:40:3',
-                tags: ['联邦学习'],
+                name: '索要授权',
+                date: '2021-3-30',
+                value: 5
+            },
+            {
+                name: '联邦学习',
+                date: '2021-3-30',
+                value: 3
+            },
+            {
+                name: '异常',
+                date: '2021-3-30',
+                value: 0
+            },
+            {
+                name: '索要授权',
+                date: '2021-3-31',
+                value: 7
+            },
+            {
+                name: '联邦学习',
+                date: '2021-3-31',
+                value: 1
+            },
+            {
+                name: '异常',
+                date: '2021-3-31',
+                value: 2
             }
         ];
-        return (
 
+        var config = {
+            data: data,
+            isGroup: true,
+            xField: 'date',
+            yField: 'value',
+            seriesField: 'name',
+            label: {
+                position: 'middle',
+                layout: [
+                    { type: 'interval-adjust-position' },
+                    { type: 'interval-hide-overlap' },
+                    { type: 'adjust-color' },
+                ],
+            },
+        };
+        const { RangePicker } = DatePicker;
+
+        return (
             <Tabs defaultActiveKey="1">
                 <TabPane tab="历史交易" key="1">
                     <Card title="交易告警信息列表">
                         <Row>
-                            <Col span={20}><Table columns={columns1} dataSource={data1} /></Col>
+                            <Col span={20}><Table columns={columns1} dataSource={alarms} pagination={{ pageSize: 5 }} /></Col>
                         </Row>
                     </Card>
                 </TabPane>
                 <TabPane tab="统计信息" key="2">
+                    <RangePicker/>
+                    <Card title="交易统计" style={{ width: 1000 , marginTop:20}}>
+                        <Column {...config} />
+                    </Card>
                 </TabPane>
             </Tabs>
         )
