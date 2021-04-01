@@ -1,17 +1,12 @@
-import Index from "../view/admin/dashboard/Index";
-import Edit from "../view/admin/products/Edit";
-import List from "../view/admin/products/List";
 import Login from "../view/loginAndRegister/login"
 import Register from "../view/loginAndRegister/register";
 import PageNotFound from "../view/PageNotFound";
-import board from '../view/admin/trademark/board'
-import UploadFile from '../view/admin/addFile/UploadFile'
-import loan from '../view/admin/loan/loan'
 import { AreaChartOutlined, DownloadOutlined, SolutionOutlined, SafetyCertificateOutlined, AuditOutlined, VerifiedOutlined, ToolOutlined, CopyOutlined, CloudUploadOutlined, ShareAltOutlined, SearchOutlined, GlobalOutlined, CreditCardOutlined } from '@ant-design/icons'
 import UserDashboard from "../view/admin/user/UserDashboard";
 import dataUpload from "../view/admin/user/dataUpload";
 import creditGrant from "../view/admin/user/creditGrant";
 import certificateDownload from "../view/admin/user/certificateDownload";
+import bingli from "../view/admin/user/bingli";
 import SuperviseDashboard from "../view/admin/supervise/SuperviseDashboard";
 import InstitutionDashboard from "../view/admin/institution/InstitutionDashboard";
 import dataShare from "../view/admin/institution/dataShare";
@@ -64,6 +59,13 @@ export const userRoutes = [
         component: certificateDownload,
         isShow: true,
         title: "证书下载",
+        icon: DownloadOutlined
+    },
+    {
+        path: "/admin/bingli",
+        component: bingli,
+        isShow: true,
+        title: "病例",
         icon: DownloadOutlined
     }
 ];

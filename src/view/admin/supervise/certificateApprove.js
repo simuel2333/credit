@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card, Table, Button, Tag, Space} from 'antd'
+import {Card, Table, Button, Space} from 'antd'
 import { randomHash, mockTime } from '../../../utils/mockData';
 
 
@@ -10,7 +10,7 @@ export default class certificateApprove extends Component {
             hash: randomHash(),
             addr : "0x8a0Bc5Db7E852d0A3184A03AEA525Ef91FbEB5fE",
             time: mockTime(1000000),
-            
+            name: "David"
         }]
         const columns1 = [
             {
@@ -24,7 +24,7 @@ export default class certificateApprove extends Component {
                 },
             },
             {
-                title: '发起方地址',
+                title: '申请方地址',
                 dataIndex: 'addr',
                 key: 'addr',
                 render: text => {
@@ -34,37 +34,21 @@ export default class certificateApprove extends Component {
                 },
             },
             {
+                title: '用户名',
+                dataIndex: 'name',
+                key: 'name',
+            },
+            {
                 title: '请求时间',
                 dataIndex: 'time',
                 key: 'time',
-            },
-            {
-                title: '标识',
-                key: 'tags',
-                dataIndex: 'tags',
-                render: tags => (
-                    <>
-                        {tags.map(tag => {
-                            let color = tag === '异常' ? 'volcano' : 'green';
-                            if (tag === '联邦学习') {
-                                color = 'geekblue';
-                            }
-
-                            return (
-                                <Tag color={color} key={tag}>
-                                    {tag.toUpperCase()}
-                                </Tag>
-                            );
-                        })}
-                    </>
-                ),
             },
             {
                 title: '操作',
                 key: 'action',
                 render: (text, record) => (
                     <Space size="middle">
-                        <Button type="primary">查看详情</Button>
+                        <Button type="primary">发布证书</Button>
                     </Space>
                 ),
             },
@@ -72,7 +56,7 @@ export default class certificateApprove extends Component {
         
         return (
             <div>
-                <Card title="新注册用户">
+                <Card title="签发证书"  style={{width:1200}}>
                 <Table columns={columns1} dataSource={data1} pagination={{ pageSize: 5 }} />
                 </Card>
             </div>
